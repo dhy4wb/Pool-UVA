@@ -1,0 +1,362 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<html>
+<head>
+    <meta charset ="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name = "author" content = "Dennis Yang, Jessica Xu">
+    <meta name = "description" content = "Project Login Screen">
+    <meta name = "keywords" content = "Login">
+
+    <title>pool@UVA login</title>
+
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="style/main.css">
+
+
+
+
+</head>
+
+
+<body onload = "setFocus()" class = "login">
+
+  <header>
+    <h1> Pool@UVA</h1>
+  </header>
+
+
+
+
+    <form name="mainform" class = "boxed" action = "home.php" method = "POST">
+      <h1>Login</h1>
+      <div class="form-group">
+        <label for="username">Username</label>
+        <input type="text" id="username" class="form-control" name="username" required/>
+        <span class="error" id="username-note"></span>
+      </div>
+
+      <div class="form-group">
+        <label for="pwd">Password</label>
+        <input type="password" id="pwd" class="form-control" required />
+        <span class="error" id="password-note"></span>
+      </div>
+
+      <div id="login-msg" class="feedback" style= "float:left; color:red;"></div><br/>
+      <input type="submit" value="Login" onclick = "login();" style= "float:center;" name = "loginbtn"/>
+
+      <h2 style = "font-size: small;">or</h2>
+
+      <input type = "button" value = "Sign Up" onclick="showForm();">
+
+
+
+    </form>
+
+    <div id = "m" class = "module" style = "display: none;">
+        <form name="sform" class = "boxed" >
+          <h1>Sign Up</h1>
+          <div class="form-group">
+            <label for="fname">First Name</label>
+            <input type="text" id="fname" class="form-control" name="fname" />
+            <span class="error" id="fname-note"></span>
+          </div>
+
+          <br/>
+
+          <div class="form-group">
+            <label for="lname">Last Name</label>
+            <input type="text" id="lname" class="form-control" />
+            <span class="error" id="password-note"></span>
+          </div>
+
+          <br/>
+
+          <div class="form-group">
+            <label for="email">Email</label>
+            <input type="text" id=email class="form-control" name="email" />
+            <span class="error" id="username-note"></span>
+          </div>
+
+          <div id="email-msg" class="feedback" style= "float:left; color:red;"></div><br/>
+
+          <div class="form-group">
+            <label for="newUName">Username (8 character minimum)</label>
+            <input type="text" id=newUName class="form-control" name="newUName" />
+            <span class="error" id="username-note"></span>
+          </div>
+
+          <div id="user-msg" class="feedback" style= "float:left; color:red;"></div><br/>
+
+          <div class="form-group">
+            <label for="password1">Password (8 character minimum)</label>
+            <input type="password" id=password1 class="form-control" />
+            <span class="error" id="username-note"></span>
+          </div>
+
+          <div id="pswd-msg" class="feedback" style= "float:left; color:red;"></div><br/>
+
+          <div class="form-group">
+            <label for="password2">Repeat Password</label>
+            <input type="password" id=password2 class="form-control" />
+            <span class="error" id="username-note"></span>
+          </div>
+
+
+          <div id="match-msg" class="feedback" style= "float:left; color:red;"></div><br/>
+          <div id="form-msg" class="feedback" style= "float:left; color:red;"></div><br/>
+
+          <input type = "button" value = "Sign Up" onclick="validateForm();">
+
+          <input type = "button" value = "Cancel" onclick="clearForm();">
+
+
+
+        </form>
+
+      </div>
+
+      <script>
+
+      //show signup form when sign up button is clicked
+        function showForm(){
+          document.getElementById('m').style.display = "block";
+        }
+
+
+        var user = document.getElementById("newUName");
+        function checkUsername(minLength) {
+           var msg = document.getElementById("user-msg");
+           if (user.value.length < minLength && user.value.length > 0){
+              msg.textContent = "Username is too short";
+              user.style.backgroundColor = "#ff8080";
+              return false;
+            }
+           else{
+              msg.textContent = "";
+              user.style.backgroundColor = "white";
+              if(user.value.length !== 0){
+                  return true;
+              }
+              else {
+                return false;
+              }
+            }
+        }
+        var fname = document.getElementById("fname");
+        var lname = document.getElementById("lname");
+        var pass = document.getElementById("password1");
+        var pass2 = document.getElementById("password2");
+        var email = document.getElementById("email");
+        var sub = false;
+        function checkPassword(minLength) {
+           var msg = document.getElementById("pswd-msg");
+           if (pass.value.length < minLength && pass.value.length > 0){
+              msg.textContent = "Password is too short";
+              pass.style.backgroundColor = "#ff8080";
+              return false;
+          }
+           else{
+             pass.style.backgroundColor = "white";
+              msg.textContent = "";
+              if(pass.value.length !== 0){
+                return true;
+              }
+              else{
+                return false;
+              }
+            }
+        }
+
+
+        if (user.addEventListener) {
+           user.addEventListener('blur', function() {
+              checkUsername(8);
+           }, false);
+        }
+        else {
+           user.attachEvent('onblur', function() {
+              checkUsername(8);
+           });
+        }
+
+        if (pass.addEventListener) {
+           pass.addEventListener('blur', function() {
+              checkPassword(8);
+           }, false);
+        }
+        else {
+           pass.attachEvent('onblur', function() {
+              checkPassword(8);
+           });
+        }
+
+        function passMatch(){
+          var msg = document.getElementById("match-msg");
+          if(pass.value === pass2.value || pass.value.length==0 ||pass2.value.length==0){
+            pass2.style.backgroundColor = "white";
+            msg.textContent="";
+            if(pass.value.length==0 ||pass2.value.length==0){
+              return false;
+            }
+            else{
+              return true;
+            }
+          }
+          else {
+            msg.textContent = "Passwords do not match";
+            pass2.style.backgroundColor = "#ff8080";
+            return false;
+          }
+        }
+
+        if (pass2.addEventListener){
+          pass2.addEventListener('blur',function(){
+            passMatch();
+          },false);
+        }
+        else{
+          pass2.addEventListener('onblur',function(){
+            passMatch();
+          });
+        }
+
+        //Email validation function taken from https://www.w3resource.com/javascript/form/email-validation.php
+
+        function validateEmail(){
+          var mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+          var msg = document.getElementById("email-msg");
+          if(email.value.match(mailformat)||email.value.length ==0){
+            msg.textContent = "";
+            email.style.backgroundColor = "white";
+            if(email.value.length>0){
+              return true;
+            }
+            else {
+              return false;
+            }
+          }
+          else {
+            msg.textContent = "Not a valid email address";
+            email.style.backgroundColor = "#ff8080";
+            return false;
+          }
+        }
+
+        if (email.addEventListener){
+          email.addEventListener('blur',function(){
+            validateEmail();
+          },false);
+        }
+        else{
+          email.addEventListener('onblur',function(){
+            validateEmail();
+          });
+        }
+
+        function validateForm(){
+          var msg = document.getElementById("form-msg");
+          //var e1 = document.getElementById("username");
+          var empty = [fname,lname,user,email,pass,pass2];
+        //  empty[0].value = "working";
+          if(checkUsername()&&lname.value.length>0 && fname.value.length>0 && validateEmail() && checkPassword() && passMatch() ){
+            location.href = "home.php";
+          }
+          else{
+
+            var i = 0;
+            for (i=0; i<empty.length;i++){
+              if(empty[i].value.length==0){
+                empty[i].style.backgroundColor="#ff8080";
+              }
+            }
+            msg.textContent = "Please correct highlighted fields";
+          }
+          sub = true;
+        }
+
+        //clears all fields and hides form when cancel button is clicked.
+
+        function clearForm(){
+          document.getElementById("form-msg").textContent = "";
+          document.getElementById("email-msg").textContent="";
+          document.getElementById("match-msg").textContent = "";
+          document.getElementById("pswd-msg").textContent="";
+          document.getElementById("user-msg").textContent="";
+          document.getElementById("fname").value = "";
+          lname.value = "";
+          fname.value = "";
+          email.value = "";
+          pass.value = "";
+          pass2.value = "";
+          user.value = "";
+          var empty = [fname,lname,user,email,pass,pass2];
+          var i = 0;
+          for (i=0; i<empty.length;i++){
+            if(empty[i].value.length==0){
+              empty[i].style.backgroundColor="white";
+            }
+          }
+          document.getElementById('m').style.display = 'none'
+        }
+
+        var uname = document.getElementById("username");
+        var loginPass = document.getElementById("pwd");
+
+        function login(){
+          var msg = document.getElementById("login-msg");
+          if(uname.value.length!==0 && loginPass.value.length!==0)
+          {
+            location.href = "home.html";
+            msg.textContent = "";
+          }
+          else{
+            msg.textContent = "Please enter username and password"
+          }
+        }
+
+        function fFill(){
+          if(sub){
+            fname.style.backgroundColor = "white";
+          }
+        }
+
+        if (fname.addEventListener){
+          fname.addEventListener('blur',function(){
+            fFill();
+          },false);
+        }
+        else{
+          fname.addEventListener('onblur',function(){
+            fFill();
+          });
+        }
+
+        function lFill(){
+          if(sub){
+            lname.style.backgroundColor = "white";
+          }
+        }
+
+        if (lname.addEventListener){
+          lname.addEventListener('blur',function(){
+            lFill();
+          },false);
+        }
+        else{
+          lname.addEventListener('onblur',function(){
+            lFill();
+          });
+        }
+
+
+      </script>
+
+
+
+
+  </body>
+  </html>

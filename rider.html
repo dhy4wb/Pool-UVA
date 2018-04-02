@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name = "author" content = "Dennis Yang and Jessica Xu">
+        <title>Pool@UVA Rider Form</title>
+        <link rel="stylesheet" type="text/css" href="style/rdstyle.css"
+    </head>
+    <body style="background-color:coral">
+        <div class="navbar" >
+            <!-- <ul> -->
+                <a href = "home.php">Home</a>
+                <a href = "myrides.html">My Rides</a>
+                <a href = "rider.html">Find Rides</a>
+                <a href = "driver.html">Give Rides</a>
+                <a href = "aboutus.html">About Pool@UVA</a>
+                <a href = "logout.php"  onclick="return confirm('Do you really want to Logout?');">Logout</a>
+
+            <!-- </ul> -->
+        </div>
+        <div class="row">
+            <form id = "userForm" action="rider.php" method="post">
+                <div class="column">
+                    <h1 class="formName">Rider Form</h1>
+                    <h3>How many people are riding with you?</h3>
+                    <input type="text" id="passNum" autofocus required onblur="checkPass()" name="passNum"><br>
+                    <div id="passmsg"></div>
+                    <h3>Amount per Person ($):</h3>
+                    <input type="text" name="price" required><br>
+                    <div id="pricemsg"></div>
+                    <h3>Where are you going?</h3>
+                    To or From UVA?<br>
+                    <select name="ToFro">
+                        <option value="To">To</option>
+                        <option value="From">From</option>
+                    </select><br>
+                    City<br>
+                    <input type="text" name="city"><br>
+                    State<br>
+                    <input type="text" id="state" name="state" required><br>
+                    Notes (drop off/pick up locations, etc.)<br>
+                    <textarea form = "userForm" placeholder="Enter text here..." name='comments' id = "textarea" rows = "8" cols="40"></textarea>
+
+                </div>
+                <div class="column">
+                    <h3 style="padding-top:5%;">What day do you want to leave?</h3>
+                    <input type="date" name="date" required>
+                    <h3>What time?</h3>
+                    <input type="time" id="time" name="time" required></input><br>
+                </div>
+        </div>
+        <button type="submit" id="submit">Submit</button>
+        <button type="reset" id = "reset">Reset</button>
+            </form>
+        <script>
+            function checkPass(){
+                var msg = document.getElementById("passmsg");
+                var passenger = document.getElementById("passNum").value;
+                if(isNaN(passenger)){
+                    msg.style.color = "red"
+                    msg.textContent = "Must be a number";
+                }
+                else{
+                    msg.textContent = "";
+                }
+            }
+        </script>
+    </body>
+</html>

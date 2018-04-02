@@ -1,0 +1,130 @@
+
+body{
+	font-family: sans-serif;
+}
+
+.login {
+
+	padding: 20px 20px 20px 20px;
+  background: url("rotunda.jpg") no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+
+footer{
+  margin: 22px;
+}
+
+h1{
+  font-size: 300%;
+  color: orange;
+	text-align: center;
+}
+
+.copyright >span{
+	position: fixed;
+  left:0;
+	bottom: 0;
+}
+
+
+.boxed{
+	padding: 5px 20px 20px 20px;
+	align-items: center;
+	width: 600px;
+	margin-left: auto;
+	margin-right: auto;
+	float: center;
+	text-align: center;
+	background-color: white;
+	border-color: black;
+	display: block;
+}
+
+.form-group{
+	text-align: left;
+}
+
+
+/*
+button {
+    background-color: white;
+    border: none;
+    color: black;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+} */
+
+.tbutton {
+	padding: 5px 5px;
+}
+
+
+
+.navbar{
+	height: 100%;
+	width: 15%;
+	position: fixed;
+	background-color: #ffc266;
+	padding-top: 30px;
+	z-index: 1;
+	overflow-x: auto;
+
+}
+
+.navbar a{
+	font-size: 1.5vw;
+	padding: 10px 10px 10px 20px;
+	color: white;
+	display: block;
+	text-decoration: none;
+}
+
+.moved{
+	padding-top: 3%;
+}
+.navbar a:hover{
+	background-color: #ffa31a;
+}
+
+/* for all content right of the navigation bar  */
+.rightnav{
+	margin-left: 15%;
+}
+
+.module{
+	position: fixed;
+	z-index: 1;
+	left: 0;
+	top: 0;
+	width:100%;
+	height: 100%;
+	background-color: #cce6ff;
+}
+
+
+table {
+	font-size: medium;
+	border-collapse: collapse;
+	border-spacing: 0;
+	width: 70%;
+}
+
+tr:nth-child(even){
+	background-color: #e6e6e6;
+}
+
+
+th{
+	background-color:#0099cc;
+	color:white;
+}
+
+th,td{
+	border-bottom: 1px solid gray;
+}

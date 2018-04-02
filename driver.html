@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name = "author" content = "Dennis Yang and Jessica Xu">
+        <title>Pool@UVA Driver Form</title>
+        <link rel="stylesheet" type="text/css" href="style/rdstyle.css"
+    </head>
+    <body>
+        <div class="navbar">
+
+                <a href = "home.php">Home</a>
+                <a href = "myrides.html">My Rides</a>
+                <a href = "rider.html">Find Rides</a>
+                <a href = "driver.html">Give Rides</a>
+                <a href = "aboutus.html">About Pool@UVA</a>
+                <a href = "logout.php"  onclick="return confirm('Do you really want to Logout?');">Logout</a>
+
+
+        </div>
+        <div class="row">
+            <form action= "driver.php" id="whole" method="post">
+            <div class="column">
+                <h1 class="formName">Driver Form</h1>
+                <h3>How many people can you take?</h3>
+                <input type="text" id="passNum" name = "passNum" autofocus required onblur="checkPass()"><br>
+                <div id="passmsg"></div>
+                <h3>Amount per Person ($):</h3>
+                <input type="text" name="price" required><br>
+                <div id="pricemsg"></div>
+                <h3>Where are you going?</h3>
+                To or From UVA?<br>
+                <select name="ToFro">
+                    <option value="to">To</option>
+                    <option value="from">From</option>
+                </select><br>
+                City<br>
+                <input type="text" name="city"><br>
+                State<br>
+                <input type="text" name="state" id="state" required><br>
+                Notes (drop off/pick up locations, etc.)<br>
+                <textarea placeholder="Enter text here..." rows = "8" cols="40" name="comments" form="whole"></textarea>
+
+            </div>
+            <div class="column">
+                <h3 style="padding-top:5%;">What day are you leaving?</h3>
+                <input type="date" name="date" required>
+                <h3>What time?</h3>
+                <input type="time" id="time" name="time" required></input><br>
+            </div>
+        </div>
+        <button type="submit" id="submit">Submit</button>
+        <button type="reset" id = "reset">Reset</button>
+    </form>
+        <script>
+            function checkPass(){
+                var msg = document.getElementById("passmsg");
+                var passenger = document.getElementById("passNum").value;
+                if(isNaN(passenger)){
+                    msg.style.color = "red"
+                    msg.textContent = "Must be a number";
+                }
+                else{
+                    msg.textContent = "";
+                }
+            }
+        </script>
+    </body>
+</html>
